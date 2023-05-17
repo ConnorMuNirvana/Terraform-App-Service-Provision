@@ -7,7 +7,7 @@ https://learn.microsoft.com/en-us/azure/app-service/provision-resource-terraform
 Note that "resource" used in the privisioning of resources may not be appropriate if existing infrastructure exists.
 The service plan can be changed manually in azure API or in code.
 
-# Configure the AZ Provider
+#Configure the AZ Provider
 terraform {
   required_providers {
     azurerm = {
@@ -21,20 +21,20 @@ provider "azurerm" {
   features {}
 }
 
-# Generate a random integer to create a globally unique name
+#Generate a random integer to create a globally unique name
 resource "random_integer" "ri" {
   min = 10000
   max = 99999
 }
 
-# Create the resource group 
-# Replace resource with import/data for existing infrastructure
+#Create the resource group 
+#Replace resource with import/data for existing infrastructure
 resource "azurerm_resource_group" "rg" {
   name     = "myResourceGroup-${random_integer.ri.result}"
   location = "USGovVirginia"
 }
 
-# Create the Linux App Service Plan
+#Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
   name                = "webapp-asp-${random_integer.ri.result}"
   location            = azurerm_resource_group.rg.location
@@ -43,7 +43,7 @@ resource "azurerm_service_plan" "appserviceplan" {
   sku_name            = "B1"
 }
 
-# Create the web app, pass in the App Service Plan ID
+#Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
   name                  = "webapp-${random_integer.ri.result}"
   location              = azurerm_resource_group.rg.location
@@ -55,7 +55,7 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 }
 
-#  Deploy code from a public GitHub repo
+#Deploy code from a public GitHub repo
 resource "azurerm_app_service_source_control" "sourcecontrol" {
   app_id             = azurerm_linux_web_app.webapp.id
   repo_url           = "https://github.com/Azure-Samples/nodejs-docs-hello-world"   #Sample Repo
