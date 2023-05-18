@@ -36,6 +36,35 @@ This creates the directory "bin" and moves the unzipped terraform files into tha
 
 ## Implementation
 
+1. Create a directory in which to test and run the sample Terraform code and make it the current directory.
+```
+mkdir appservice_tf_quickstart
 
-Note that "resource" used in the privisioning of resources may not be appropriate if existing infrastructure exists.
-The service plan can be changed manually in azure API or in code.
+cd appservice_tf_quickstart
+```
+
+2. Create a file named main.tf and paste the code from https://learn.microsoft.com/en-us/azure/app-service/provision-resource-terraform
+
+```
+code main.tf
+```
+
+Note that any changes you want to make should be done now. "resource" used in the privisioning of resources may not be appropriate if existing infrastructure exists. The service plan can be changed manually in azure API or in code. Save any relevant changes.
+
+3. Initialize Terraform 
+
+```
+terraform init
+```
+
+4. Create Terraform plan
+
+```
+terraform plan
+```
+
+5. Finalize creation of Azure Web App. Before applying make sure that main.tf reflects final vision for web app.
+
+```
+terraform apply
+```
